@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#27ae60">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-512.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>今天鉴赏了什么番</title>
+</head>
+<body>
+  <div id="app">
+    <header id="app-header">
+      <h1 class="app-title">今天鉴赏了什么番</h1>
+      <div id="stats-bar" class="stats-bar">
+        <span id="stats-total">共 0 条记录</span>
+        <span id="stats-avg">均分 -</span>
+      </div>
+    </header>
+
+    <div id="search-section" class="search-section">
+      <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="search-input" placeholder="搜索影视名称..." autocomplete="off">
+        <button id="search-clear" class="search-clear hidden">✕</button>
+      </div>
+      <div id="type-filters" class="type-filters">
+        <button class="type-pill active" data-type="">全部</button>
+        <button class="type-pill" data-type="movie">电影</button>
+        <button class="type-pill" data-type="tv">漫画</button>
+        <button class="type-pill" data-type="anime">番剧</button>
+      </div>
+    </div>
+
+    <div id="sort-controls" class="sort-controls">
+      <span class="sort-label">排序：</span>
+      <select id="sort-select" class="sort-select">
+        <option value="created_at_desc">最近添加</option>
+        <option value="created_at_asc">最早添加</option>
+        <option value="rating_desc">评分 ↓</option>
+        <option value="rating_asc">评分 ↑</option>
+        <option value="watch_date_desc">观看日期 ↓</option>
+        <option value="watch_date_asc">观看日期 ↑</option>
+      </select>
+    </div>
+
+    <main id="review-list" class="review-list">
+      <div class="empty-state">
+        <div class="empty-icon">🎬</div>
+        <p class="empty-title">还没有添加任何影视记录</p>
+        <p class="empty-hint">点击下方 + 按钮开始记录</p>
+      </div>
+    </main>
+
+    <button id="fab" class="fab" title="添加记录">+</button>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modal-title">添加记录</h2>
+          <button id="modal-close" class="modal-close">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">标题 <span class="required">*</span></label>
+            <input type="text" id="form-title" class="form-input" placeholder="输入影视名称" maxlength="200">
+            <span id="form-title-error" class="form-error"></span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">类型 <span class="required">*</span></label>
+              <div id="form-type-pills" class="type-pills-row">
+                <button class="type-pill" data-type="movie">电影</button>
+                <button class="type-pill" data-type="tv">漫画</button>
+                <button class="type-pill" data-type="anime">番剧</button>
+              </div>
+              <span id="form-type-error" class="form-error"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">观看日期</label>
+            <input type="date" id="form-watch-date" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">评分 <span class="required">*</span></label>
+            <div id="form-star-rating" class="star-rating"></div>
+            <span id="form-rating-error" class="form-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">封面图片</label>
+            <div id="form-image-area" class="image-upload-area">
+              <div id="image-preview" class="image-preview hidden">
+                <img id="image-preview-img" src="" alt="封面预览">
+                <button id="image-remove" class="image-remove">✕</button>
+              </div>
+              <div id="image-placeholder" class="image-placeholder">
+                <span class="image-placeholder-icon">🖼️</span>
+                <span class="image-placeholder-text">点击或拖拽上传封面</span>
+              </div>
+              <input type="file" id="form-image-input" class="file-input-hidden" accept="image/*">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">评价</label>
+            <textarea id="form-review" class="form-textarea" placeholder="写下你的评价..." maxlength="2000"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button id="form-delete" class="btn btn-danger hidden">删除</button>
+          <div class="modal-actions">
+            <button id="form-cancel" class="btn btn-ghost">取消</button>
+            <button id="form-save" class="btn btn-primary">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Install Banner -->
+    <div id="install-banner" class="install-banner hidden">
+      <span class="install-text">添加到主屏幕，随时记录</span>
+      <button id="install-btn" class="btn btn-primary btn-sm">安装</button>
+      <button id="install-dismiss" class="btn btn-ghost btn-sm">✕</button>
+    </div>
+  </div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
