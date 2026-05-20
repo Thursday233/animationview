@@ -73,6 +73,7 @@ export const db = {
     const now = Date.now();
     const review = {
       ...data,
+      id: crypto.randomUUID ? crypto.randomUUID() : `${now}-${Math.random().toString(36).slice(2, 9)}`,
       created_at: now,
       updated_at: now,
     };
