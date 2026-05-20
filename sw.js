@@ -1,4 +1,4 @@
-const CACHE_NAME = 'review-app-v2';
+const CACHE_NAME = 'review-app-v3';
 const BASE = new URL(self.registration.scope).pathname;
 const ASSETS = [
   BASE,
@@ -11,7 +11,6 @@ const ASSETS = [
   BASE + 'js/components/reviewForm.js',
   BASE + 'js/components/searchBar.js',
   BASE + 'js/components/sortControls.js',
-  BASE + 'js/components/starRating.js',
   BASE + 'icons/icon-192.png',
   BASE + 'icons/icon-512.png',
   BASE + 'manifest.json'
