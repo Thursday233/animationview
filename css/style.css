@@ -46,7 +46,6 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   min-height: 100dvh;
-  padding-top: var(--safe-top);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -58,7 +57,7 @@ input, textarea, select, button {
 /* === App Header === */
 #app-header {
   background: var(--color-surface);
-  padding: calc(16px + var(--safe-top)) 20px 16px;
+  padding: calc(8px + var(--safe-top)) 20px 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
