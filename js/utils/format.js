@@ -20,10 +20,6 @@ export function typeColor(type) {
   return map[type] || '#888';
 }
 
-export function starDisplay(rating) {
-  return '★'.repeat(rating) + '☆'.repeat(5 - rating);
-}
-
 export function timeAgo(isoStr) {
   if (!isoStr) return '';
   const now = Date.now();

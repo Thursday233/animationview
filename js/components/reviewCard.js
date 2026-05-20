@@ -1,6 +1,6 @@
 import { formatDate, typeLabel, typeEmoji } from '../utils/format.js';
 
-export function createReviewCard(review, { onEdit, onRate } = {}) {
+export function createReviewCard(review, { onEdit } = {}) {
   const card = document.createElement('div');
   card.className = 'review-card';
 
@@ -39,13 +39,13 @@ export function createReviewCard(review, { onEdit, onRate } = {}) {
   header.appendChild(title);
   header.appendChild(badge);
 
-  // Stars (interactive)
-  const stars = createStarRow(review.rating, (newRating) => {
-    if (onRate) onRate(review.id, newRating);
-  });
+  // Rating
+  const rating = document.createElement('div');
+  rating.className = 'card-rating';
+  rating.textContent = formatRating(review.rating);
 
   body.appendChild(header);
-  body.appendChild(stars);
+  body.appendChild(rating);
 
   // Date (optional)
   if (review.watch_date) {
@@ -72,38 +72,10 @@ export function createReviewCard(review, { onEdit, onRate } = {}) {
   return card;
 }
 
-function createStarRow(rating, onRate) {
-  const row = document.createElement('div');
-  row.className = 'card-stars';
-
-  for (let i = 1; i <= 5; i++) {
-    const star = document.createElement('span');
-    star.className = 'card-star' + (i <= rating ? ' filled' : '');
-    star.textContent = '★';
-    star.dataset.value = i;
-
-    star.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const newRating = i === rating ? 0 : i;
-      onRate(newRating);
-    });
-
-    star.addEventListener('mouseenter', () => {
-      row.querySelectorAll('.card-star').forEach((s, j) => {
-        s.classList.toggle('filled', j < i);
-      });
-    });
-
-    row.appendChild(star);
-  }
-
-  row.addEventListener('mouseleave', () => {
-    row.querySelectorAll('.card-star').forEach((s, j) => {
-      s.classList.toggle('filled', j < rating);
-    });
-  });
-
-  return row;
+function formatRating(rating) {
+  const n = Number(rating);
+  if (!n && n !== 0) return '— / 5.0';
+  return (Math.round(n * 10) / 10).toFixed(1) + ' / 5.0';
 }
 
 function createPlaceholder(type) {

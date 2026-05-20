@@ -23,7 +23,6 @@ class App {
   async init() {
     this.reviewList = new ReviewList(document.getElementById('review-list'), {
       onEdit: (id) => this.openEditForm(id),
-      onRate: (id, rating) => this.handleRate(id, rating),
     });
     this.reviewList.onRefresh = () => this.loadReviews();
 
@@ -91,20 +90,6 @@ class App {
         : '均分 -';
     } catch (err) {
       // Silently fail for stats
-    }
-  }
-
-  async handleRate(id, rating) {
-    try {
-      await db.update(id, { rating });
-      const idx = this.state.reviews.findIndex(r => r.id === id);
-      if (idx !== -1) {
-        this.state.reviews[idx].rating = rating;
-        this.renderList();
-        await this.loadStats();
-      }
-    } catch (err) {
-      this.showToast('更新评分失败：' + err.message, 'error');
     }
   }
 

@@ -1,5 +1,3 @@
-import { StarRating } from './starRating.js';
-
 export class ReviewForm {
   constructor(overlay, { onSave, onDelete, onClose } = {}) {
     this.overlay = overlay;
@@ -8,7 +6,6 @@ export class ReviewForm {
     this.onClose = onClose;
     this.mode = 'add';
     this.editId = null;
-    this.starRating = null;
     this.imageDataUrl = null;
 
     this.elements = {
@@ -18,7 +15,7 @@ export class ReviewForm {
       typePills: overlay.querySelector('#form-type-pills'),
       formTypeError: overlay.querySelector('#form-type-error'),
       watchDate: overlay.querySelector('#form-watch-date'),
-      starContainer: overlay.querySelector('#form-star-rating'),
+      ratingInput: overlay.querySelector('#form-rating'),
       formRatingError: overlay.querySelector('#form-rating-error'),
       imageArea: overlay.querySelector('#form-image-area'),
       imagePreview: overlay.querySelector('#image-preview'),
@@ -37,9 +34,8 @@ export class ReviewForm {
   }
 
   setupListeners() {
-    this.starRating = new StarRating(this.elements.starContainer, {
-      initial: 0,
-      onChange: () => this.clearError('rating')
+    this.elements.ratingInput.addEventListener('input', () => {
+      this.clearError('rating');
     });
 
     this.elements.typePills.querySelectorAll('.type-pill').forEach(pill => {
@@ -119,10 +115,7 @@ export class ReviewForm {
       p.classList.toggle('active', p.dataset.type === typeValue);
     });
 
-    if (this.starRating) {
-      this.starRating.rating = review ? review.rating : 0;
-      this.starRating.render();
-    }
+    this.elements.ratingInput.value = review && review.rating ? review.rating : '';
 
     // Image preview: data URL or old server path
     if (review && review.image_path) {
@@ -187,9 +180,10 @@ export class ReviewForm {
       valid = false;
     }
 
-    const rating = this.starRating.getValue();
-    if (!rating || rating < 1) {
-      this.setError('rating', '请选择评分');
+    const ratingVal = this.elements.ratingInput.value.trim();
+    const rating = parseFloat(ratingVal);
+    if (!ratingVal || isNaN(rating) || rating < 0 || rating > 5) {
+      this.setError('rating', '请输入 0.0 到 5.0 之间的评分');
       valid = false;
     }
 
@@ -203,7 +197,7 @@ export class ReviewForm {
     const data = {
       title: this.elements.formTitle.value.trim(),
       type: this.elements.typePills.querySelector('.type-pill.active').dataset.type,
-      rating: this.starRating.getValue(),
+      rating: Math.round(parseFloat(this.elements.ratingInput.value) * 10) / 10,
       watch_date: this.elements.watchDate.value,
       review: this.elements.review.value.trim(),
       image_path: this.imageDataUrl || '',

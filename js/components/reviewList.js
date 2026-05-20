@@ -1,10 +1,9 @@
 import { createReviewCard } from './reviewCard.js';
 
 export class ReviewList {
-  constructor(container, { onEdit, onRate } = {}) {
+  constructor(container, { onEdit } = {}) {
     this.container = container;
     this.onEdit = onEdit;
-    this.onRate = onRate;
     this.onRefresh = null;
 
     // Pull-to-refresh state
@@ -26,7 +25,7 @@ export class ReviewList {
     grid.className = 'review-grid';
 
     for (const review of reviews) {
-      const card = createReviewCard(review, { onEdit: this.onEdit, onRate: this.onRate });
+      const card = createReviewCard(review, { onEdit: this.onEdit });
       grid.appendChild(card);
     }
 

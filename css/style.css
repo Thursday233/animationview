@@ -299,28 +299,11 @@ input, textarea, select, button {
   font-weight: 500;
 }
 
-.card-stars {
-  display: flex;
-  gap: 0;
-  margin-bottom: 4px;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.card-star {
-  font-size: 1.35rem;
-  color: #e0e0e0;
-  cursor: pointer;
-  padding: 2px 2px;
-  transition: color 0.15s ease;
-}
-
-.card-star.filled {
+.card-rating {
+  font-size: var(--font-sm);
+  font-weight: 600;
   color: var(--color-gold);
-}
-
-.card-star:active {
-  transform: scale(1.2);
+  margin-bottom: 4px;
 }
 
 .card-date {
@@ -557,27 +540,42 @@ input, textarea, select, button {
   display: none !important;
 }
 
-/* === Star Rating === */
-.star-rating {
+/* === Rating Input === */
+.rating-input-row {
   display: flex;
-  gap: 4px;
-  font-size: 2.25rem;
-  cursor: pointer;
-  user-select: none;
+  align-items: center;
+  gap: 8px;
 }
 
-.star {
-  color: #e0e0e0;
-  transition: color 0.15s ease, transform 0.15s ease;
+.rating-input {
+  width: 100px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--font-lg);
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  transition: border-color var(--transition);
+  -moz-appearance: textfield;
 }
 
-.star.filled {
-  color: var(--color-gold);
+.rating-input::-webkit-inner-spin-button,
+.rating-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.star.hover {
-  color: var(--color-gold);
-  transform: scale(1.12);
+.rating-input:focus {
+  border-color: var(--color-primary);
+}
+
+.rating-unit {
+  font-size: var(--font-lg);
+  color: var(--color-text-secondary);
+  font-weight: 500;
 }
 
 /* === Image Upload === */
