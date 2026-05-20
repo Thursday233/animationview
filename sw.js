@@ -1,19 +1,20 @@
 const CACHE_NAME = 'review-app-v2';
+const BASE = new URL(self.registration.scope).pathname;
 const ASSETS = [
-  '/',
-  '/css/style.css',
-  '/js/db.js',
-  '/js/app.js',
-  '/js/utils/format.js',
-  '/js/components/reviewCard.js',
-  '/js/components/reviewList.js',
-  '/js/components/reviewForm.js',
-  '/js/components/searchBar.js',
-  '/js/components/sortControls.js',
-  '/js/components/starRating.js',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/manifest.json'
+  BASE,
+  BASE + 'css/style.css',
+  BASE + 'js/db.js',
+  BASE + 'js/app.js',
+  BASE + 'js/utils/format.js',
+  BASE + 'js/components/reviewCard.js',
+  BASE + 'js/components/reviewList.js',
+  BASE + 'js/components/reviewForm.js',
+  BASE + 'js/components/searchBar.js',
+  BASE + 'js/components/sortControls.js',
+  BASE + 'js/components/starRating.js',
+  BASE + 'icons/icon-192.png',
+  BASE + 'icons/icon-512.png',
+  BASE + 'manifest.json'
 ];
 
 self.addEventListener('install', (event) => {

@@ -2,13 +2,13 @@
   "name": "今天鉴赏了什么番",
   "short_name": "鉴赏番剧",
   "description": "记录和追踪电影、电视剧和番剧",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#f7faf7",
   "theme_color": "#27ae60",
   "orientation": "any",
   "icons": [
-    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
