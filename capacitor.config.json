@@ -1,5 +1,9 @@
 {
   "appId": "com.animationview.app",
   "appName": "今天鉴赏了什么番",
-  "webDir": "www"
+  "webDir": "www",
+  "server": {
+    "url": "https://thursday233.github.io/animationview/",
+    "cleartext": true
+  }
 }
