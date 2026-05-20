@@ -1,4 +1,4 @@
-const CACHE_NAME = 'review-app-v3';
+const CACHE_NAME = 'review-app-v4';
 const BASE = new URL(self.registration.scope).pathname;
 const ASSETS = [
   BASE,
@@ -34,13 +34,13 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      return cached || fetch(event.request).then((response) => {
-        return caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, response.clone());
-          return response;
-        });
+    fetch(event.request).then((response) => {
+      return caches.open(CACHE_NAME).then((cache) => {
+        cache.put(event.request, response.clone());
+        return response;
       });
+    }).catch(() => {
+      return caches.match(event.request);
     })
   );
 });
